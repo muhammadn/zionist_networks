@@ -25,7 +25,7 @@ for asn in asns:
     soup = BeautifulSoup(page_source, features="lxml")
     # get all IPv4 networks, can be tweaked for IPv6
     result = soup.find("table", id="table_prefixes4").find("tbody").find_all("a")
-    with open('test1.txt', 'w') as f: 
+    with open('zionist_networks.txt', 'w') as f: 
         for i in result:
            f.write(i.text + "\n")
            print(i.text)
