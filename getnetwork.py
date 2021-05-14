@@ -18,14 +18,19 @@ soup = BeautifulSoup(page_source, features="lxml")
 asns = soup.find("table", id="asns").find("tbody").find_all("a")
 
 for asn in asns:
+    print("ASN Number: " + asn.text)
     driver.get("https://bgp.he.net/" + asn.text + "#_prefixes")
-    time.sleep(5)
+    time.sleep(10)
     page_source = driver.page_source
 
     soup = BeautifulSoup(page_source, features="lxml")
     # get all IPv4 networks, can be tweaked for IPv6
-    result = soup.find("table", id="table_prefixes4").find("tbody").find_all("a")
-    with open('zionist_networks.txt', 'a') as f: 
-        for i in result:
-           f.write(i.text + "\n")
-           print(i.text)
+
+    try:
+        result = soup.find("table", id="table_prefixes4").find("tbody").find_all("a")
+        with open('zionist_networks.txt', 'a') as f: 
+            for i in result:
+               f.write(i.text + "\n")
+               print(i.text)
+    except Exception:
+        pass
